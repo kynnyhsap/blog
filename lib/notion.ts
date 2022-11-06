@@ -1,19 +1,25 @@
 import { Client } from '@notionhq/client'
-import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
+import {
+  BlockObjectResponse,
+  PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints'
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 })
 
-export async function getDatabase() {
-  const response = await notion.databases.query({
+export async function getPages() {
+  const { results } = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_ID as string,
   })
-  return response.results
+
+  return results as PageObjectResponse[]
 }
 
 export async function getPage(pageId: string) {
-  return notion.pages.retrieve({ page_id: pageId })
+  return (await notion.pages.retrieve({
+    page_id: pageId,
+  })) as never as PageObjectResponse
 }
 
 export async function getBlocks(blockId: string) {

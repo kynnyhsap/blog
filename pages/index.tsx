@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import styles from './index.module.css'
-import { getDatabase } from '../lib/notion'
+import { getPages } from '../lib/notion'
 import Link from 'next/link'
 import { Text } from './[id]'
 
 export const getStaticProps = async () => {
-  const database = await getDatabase()
+  const database = await getPages()
 
   return {
     props: {
