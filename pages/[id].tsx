@@ -186,6 +186,7 @@ export default function Post({ page, blocks }) {
 
 export const getStaticPaths = async () => {
   const database = await getDatabase()
+  // console.log(database.map(({ properties }) => properties))
   return {
     paths: database.map((page) => ({ params: { id: page.id } })),
     fallback: true,
