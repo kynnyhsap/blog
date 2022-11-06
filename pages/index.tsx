@@ -1,6 +1,18 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { getDatabase } from '../lib/notion'
+
+export const getStaticProps = async () => {
+  const database = await getDatabase()
+
+  return {
+    props: {
+      posts: database,
+    },
+    revalidate: 1,
+  }
+}
 
 export default function Home() {
   return (
